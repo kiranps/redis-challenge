@@ -1,0 +1,4 @@
+(executable
+  (name SpawnServer)
+  (public_name SpawnServer)
+  (libraries app))

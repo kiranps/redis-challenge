@@ -1,0 +1,29 @@
+{
+  "name": "reason-redis",
+  "version": "0.0.1",
+  "description": "Paul's Haskell Challenge for ReasonML",
+  "license": "MIT",
+  "esy": {
+      "build": "refmterr dune build -p #{self.name}",
+      "release": { "bin": ["SpawnServer"] }
+  },
+  "scripts": {
+    "test": "esy x SpawnServer",
+    "doc": "esy dune build @doc"
+  },
+  "dependencies": {
+    "@opam/dune": "*",
+    "@reason-native/console": "*",
+    "@reason-native/pastel": "*",
+    "@reason-native/rely": "*",
+    "@esy-ocaml/reason": ">= 3.4.0 < 3.6.0",
+    "refmterr": "*",
+    "ocaml": "~4.8.1000"
+  },
+  "devDependencies": {
+    "@opam/merlin": "*",
+    "ocaml": "~4.8.1000",
+    "@opam/odoc": "*"
+  }
+}
+
