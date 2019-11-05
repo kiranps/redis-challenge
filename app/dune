@@ -1,4 +1,5 @@
 (library
   (name app)
-  (flags (-w -40 -w +26))
-  (public_name reason-redis))
+  (flags ())
+  (public_name reason-redis)
+  (libraries unix))
