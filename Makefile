@@ -1,7 +1,7 @@
 current_stage := 0
 
 compile:
-	stack build
+	esy build
 
 download_tester_linux:
 	rm -rf tester
