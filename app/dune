@@ -2,4 +2,4 @@
   (name app)
   (flags ())
   (public_name reason-redis)
-  (libraries unix))
+  (libraries str unix lwt lwt.unix tablecloth-native))

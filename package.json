@@ -4,21 +4,21 @@
   "description": "Paul's Haskell Challenge for ReasonML",
   "license": "MIT",
   "esy": {
-      "build": "refmterr dune build -p #{self.name}",
-      "release": { "bin": ["SpawnServer"] }
+    "build": "refmterr dune build -p #{self.name}",
+    "release": { "bin": [ "SpawnServer" ] }
   },
-  "scripts": {
-    "test": "esy x SpawnServer",
-    "doc": "esy dune build @doc"
-  },
+  "scripts": { "test": "esy x SpawnServer", "doc": "esy dune build @doc" },
   "dependencies": {
+    "@esy-ocaml/reason": ">= 3.4.0 < 3.6.0",
     "@opam/dune": "*",
+    "@opam/lwt": "4.4.0",
+    "@opam/rtop": "3.5.2",
+    "@opam/tablecloth-native": "0.0.6",
     "@reason-native/console": "*",
     "@reason-native/pastel": "*",
     "@reason-native/rely": "*",
-    "@esy-ocaml/reason": ">= 3.4.0 < 3.6.0",
-    "refmterr": "*",
-    "ocaml": "~4.8.1000"
+    "ocaml": "~4.8.1000",
+    "refmterr": "*"
   },
   "devDependencies": {
     "@opam/merlin": "*",
@@ -26,4 +26,3 @@
     "@opam/odoc": "*"
   }
 }
-
