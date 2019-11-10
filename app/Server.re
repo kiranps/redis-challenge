@@ -54,13 +54,14 @@ let execute_command = command => {
   };
 };
 
-let handle_commands = s => {
+let rec handle_commands = s => {
   let cin = in_channel_of_descr(s);
   let cout = out_channel_of_descr(s);
   let redis_command = resp_parser(cin);
   let result = execute_command(redis_command);
   output_string(cout, result);
   flush(cout);
+  handle_commands(s);
 };
 
 let rec create_connection = sock => {
