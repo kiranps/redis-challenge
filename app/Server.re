@@ -11,16 +11,9 @@ type resp_type =
   | Array(list(resp_type))
   | InvalidType;
 
-let parse_bulk_string = cin => cin |> input_line |> String.trim;
+let store = Hashtbl.create(999999);
 
-let rec print_channel = cin => {
-  switch (cin |> input_line) {
-  | value =>
-    print_endline(value);
-    print_channel(cin);
-  | exception End_of_file => print_endline("EOF")
-  };
-};
+let parse_bulk_string = cin => cin |> input_line |> String.trim;
 
 let rec parse_array = (cin, len) => {
   len === 1
@@ -46,6 +39,20 @@ let execute_command = command => {
     | BulkString("echo") =>
       switch (rest) {
       | [BulkString(x)] => "+" ++ x ++ "\r\n"
+      | _ => "+Invalid\r\n"
+      }
+    | BulkString("set") =>
+      switch (rest) {
+      | [BulkString(key), BulkString(value)] =>
+        Hashtbl.add(store, key, value);
+        "+OK\r\n";
+      | _ => "+Invalid\r\n"
+      }
+    | BulkString("get") =>
+      switch (rest) {
+      | [BulkString(key)] =>
+        let value = Hashtbl.find(store, key);
+        "+" ++ value ++ "\r\n";
       | _ => "+Invalid\r\n"
       }
     | _ => "+Invalid\r\n"
