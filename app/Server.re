@@ -26,9 +26,16 @@ and resp_parser = cin => {
   | Some(('*', len)) =>
     Array(parse_array(cin, int_of_string(len)) |> List.reverse)
   | Some(('$', len)) => BulkString(parse_bulk_string(cin))
+  | Some((':', number)) => Interger(number |> int_of_string)
   | Some((_, _)) => InvalidType
   | None => InvalidType
   };
+};
+
+let sleep_wait = (key, expiry) => {
+  expiry |> float_of_int |> string_of_float |> print_endline;
+  sleepf(float_of_int(expiry) /. 1000.);
+  Hashtbl.replace(store, key, "nil");
 };
 
 let execute_command = command => {
@@ -42,17 +49,29 @@ let execute_command = command => {
       | _ => "+Invalid\r\n"
       }
     | BulkString("set") =>
+      print_endline("hello man");
       switch (rest) {
       | [BulkString(key), BulkString(value)] =>
         Hashtbl.add(store, key, value);
         "+OK\r\n";
+      | [
+          BulkString(key),
+          BulkString(value),
+          BulkString("px"),
+          BulkString(exp),
+        ] =>
+        let expiry_time = exp |> int_of_string;
+        print_endline("expiry");
+        Hashtbl.add(store, key, value);
+        let _ = Thread.create(sleep_wait(key), expiry_time);
+        "+OK\r\n";
       | _ => "+Invalid\r\n"
-      }
+      };
     | BulkString("get") =>
       switch (rest) {
       | [BulkString(key)] =>
         let value = Hashtbl.find(store, key);
-        "+" ++ value ++ "\r\n";
+        value == "nil" ? "$-1\r\n" : "+" ++ value ++ "\r\n";
       | _ => "+Invalid\r\n"
       }
     | _ => "+Invalid\r\n"
