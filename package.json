@@ -15,7 +15,6 @@
     "@opam/rtop": "3.5.2",
     "@opam/tablecloth-native": "0.0.6",
     "@reason-native/console": "*",
-    "@reason-native/pastel": "*",
     "@reason-native/rely": "*",
     "ocaml": "~4.8.1000",
     "refmterr": "*"

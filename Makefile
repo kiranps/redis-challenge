@@ -1,4 +1,4 @@
-current_stage := 0
+current_stage := 6
 
 compile:
 	esy build
